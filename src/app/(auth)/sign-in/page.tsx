@@ -31,7 +31,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>
 
-export default function SignInPage() {
+export default function SignInPageContent() {
   const router = useRouter()
   const params = useSearchParams()
   const callbackUrl = params.get('callbackUrl') || '/dashboard'
@@ -48,7 +48,6 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (!errorParam) return
-    // Mapeia erros comuns do NextAuth
     const map: Record<string, string> = {
       CredentialsSignin: 'E-mail ou senha inválidos.',
       Default: 'Não foi possível entrar. Tente novamente.',
@@ -173,7 +172,8 @@ export default function SignInPage() {
                   </Button>
                 </form>
               </Form>
-<p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+
+              <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Seus dados são protegidos conforme a LGPD.
               </p>
@@ -181,9 +181,11 @@ export default function SignInPage() {
 
             <CardFooter className="flex items-center justify-between">
               <Link href="/" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
-              Voltar para a página inicial</Link>
+                Voltar para a página inicial
+              </Link>
               <Link href="/privacy" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
-              Política de Privacidade</Link>
+                Política de Privacidade
+              </Link>
             </CardFooter>
           </Card>
         </motion.div>
