@@ -22,6 +22,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Eye, EyeOff, Lock, Mail, PawPrint, Loader2, ShieldCheck } from 'lucide-react'
+import Link from 'next/link'
 
 const schema = z.object({
   email: z.string().email('Informe um e-mail válido'),
@@ -83,13 +84,13 @@ export default function SignInPage() {
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-background to-muted/40">
       <header className="mx-auto max-w-xl px-4 py-8">
-        <a href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/10">
             <PawPrint className="h-5 w-5 text-primary" />
           </div>
           <span className="text-lg font-bold">BobBob</span>
           <Badge variant="secondary" className="ml-1">Entrar</Badge>
-        </a>
+        </Link>
       </header>
 
       <main className="mx-auto max-w-xl px-4 pb-20">
@@ -159,8 +160,12 @@ export default function SignInPage() {
                   />
 
                   <div className="flex items-center justify-between text-sm">
-                    <a className="text-primary underline-offset-4 hover:underline" href="/forgot-password">Esqueci minha senha</a>
-                    <a className="text-muted-foreground underline-offset-4 hover:underline" href="/get-started">Criar conta</a>
+                    <Link className="text-primary underline-offset-4 hover:underline" href="/forgot-password">
+                      Esqueci minha senha
+                    </Link>
+                    <Link className="text-muted-foreground underline-offset-4 hover:underline" href="/get-started">
+                      Criar conta
+                    </Link>
                   </div>
 
                   <Button type="submit" size="lg" className="mt-2 gap-2" disabled={isPending}>
@@ -175,8 +180,10 @@ export default function SignInPage() {
             </CardContent>
 
             <CardFooter className="flex items-center justify-between">
-              <a href="/" className="text-sm text-muted-foreground underline-offset-4 hover:underline">Voltar para a página inicial</a>
-              <a href="/privacy" className="text-sm text-muted-foreground underline-offset-4 hover:underline">Política de Privacidade</a>
+              <Link href="/" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
+              Voltar para a página inicial</Link>
+              <Link href="/privacy" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
+              Política de Privacidade</Link>
             </CardFooter>
           </Card>
         </motion.div>
