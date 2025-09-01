@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -33,9 +33,6 @@ type FormValues = z.infer<typeof schema>
 
 export default function SignInPageContent() {
   const router = useRouter()
-  const params = useSearchParams()
-  const callbackUrl = params.get('callbackUrl') || '/dashboard'
-  const errorParam = params.get('error')
 
   const [showPassword, setShowPassword] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -47,14 +44,7 @@ export default function SignInPageContent() {
   })
 
   useEffect(() => {
-    if (!errorParam) return
-    const map: Record<string, string> = {
-      CredentialsSignin: 'E-mail ou senha inválidos.',
-      Default: 'Não foi possível entrar. Tente novamente.',
-      AccessDenied: 'Acesso negado.',
-    }
-    setGenericError(map[errorParam] || map.Default)
-  }, [errorParam])
+  }, [])
 
   async function onSubmit(values: FormValues) {
     setGenericError(null)
@@ -63,7 +53,6 @@ export default function SignInPageContent() {
         email: values.email,
         password: values.password,
         redirect: false,
-        callbackUrl,
       })
 
       if (!res) {
@@ -75,8 +64,6 @@ export default function SignInPageContent() {
         setGenericError('E-mail ou senha inválidos.')
         return
       }
-
-      if (res.ok) router.push(callbackUrl)
     })
   }
 
